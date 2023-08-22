@@ -29,7 +29,7 @@ fetchBreeds()
       selectEl.appendChild(option);
     });
     toggleLoader(false);
-    selectEl.style.display = 'block';
+    selectEl.style.display = 'flex';
     new SlimSelect({
       select: '.breed-select',
     });
