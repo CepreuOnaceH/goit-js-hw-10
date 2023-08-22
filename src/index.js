@@ -1,6 +1,6 @@
 import { fetchBreeds, fetchCatByBreed } from './cat-api.js';
 import SlimSelect from 'slim-select';
-import '/node_modules/slim-select/dist/slimselect.css';
+import 'slim-select/dist/slimselect.css';
 import Notiflix from 'notiflix';
 
 const selectEl = document.querySelector('.breed-select');
@@ -9,8 +9,8 @@ const catInfoEl = document.querySelector('.cat-info');
 const textLoader = document.querySelector('.loader-text');
 
 const toggleLoader = isShown => {
-  loaderEl.style.display = isShown ? 'block' : 'none';
-  textLoader.style.display = isShown ? 'block' : 'none';
+  loaderEl.style.display = isShown ? 'flex' : 'none';
+  textLoader.style.display = isShown ? 'flex' : 'none';
 };
 
 const toggleError = () => {
@@ -19,27 +19,25 @@ const toggleError = () => {
   );
 };
 
-window.addEventListener('DOMContentLoaded', () => {
-  toggleLoader(true);
-  fetchBreeds()
-    .then(breeds => {
-      breeds.forEach(breed => {
-        const option = document.createElement('option');
-        option.value = breed.id;
-        option.textContent = breed.name;
-        selectEl.appendChild(option);
-      });
-      toggleLoader(false);
-      selectEl.style.display = 'block';
-      new SlimSelect({
-        select: '.breed-select',
-      });
-    })
-    .catch(() => {
-      toggleLoader(false);
-      toggleError(true);
+toggleLoader(true);
+fetchBreeds()
+  .then(breeds => {
+    breeds.forEach(breed => {
+      const option = document.createElement('option');
+      option.value = breed.id;
+      option.textContent = breed.name;
+      selectEl.appendChild(option);
     });
-});
+    toggleLoader(false);
+    selectEl.style.display = 'block';
+    new SlimSelect({
+      select: '.breed-select',
+    });
+  })
+  .catch(() => {
+    toggleLoader(false);
+    toggleError(true);
+  });
 
 selectEl.addEventListener('change', event => {
   toggleLoader(true);

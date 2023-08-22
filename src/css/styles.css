@@ -1,3 +1,6 @@
+.loader-container {
+  width: 250px;
+}
 .breed-select {
   display: none;
 }
